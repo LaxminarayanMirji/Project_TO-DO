@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <!-- Page Title -->
+    <h1 class="text-center page-title">The ToDo App</h1>
+
+    <!-- Add New Task Form -->
+    <div class="task-form mb-5">
+        <h4 class="task-form-title">Add a New Task</h4>
+        <form method="POST" class="task-form-content">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ context_form.as_p }}
+            </div>
+            <div class="form-buttons">
+                <input type="submit" value="Add Task" class="btn btn-primary btn-custom">
+                <a href="/" class="btn btn-secondary btn-custom">Cancel</a>
+            </div>
+        </form>
+    </div>
+
+    <!-- Task List Section -->
+    <div class="task-list">
+        <h4 class="task-list-title">Tasks to be Completed</h4>
+        <ul class="task-ul">
+            {% for x in context_obj %}
+            <li class="task-item">
+                <span class="task-name">{{ x.add_todo }}</span>
+                <a href="{{ x.get_absolute_url }}" class="btn btn-outline-success btn-custom">Mark as Done</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}
